@@ -1,11 +1,11 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { Button } from 'react-native-paper';
+import { View, StyleSheet } from 'react-native';
+import { Button, Text } from 'react-native-paper';
 
 export const HomeScreen = () => {
   return (
     <View style={styles.container}>
-      <Text>HomeScreen</Text>
+      <Text variant="headlineLarge">HomeScreenjs</Text>
       <Button icon="camera" mode="contained" onPress={()=>console.log('Ok')}>
         Prueba
       </Button>

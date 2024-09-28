@@ -1,25 +1,13 @@
 import React from 'react';
 import '../gesture-handler';
-import { NavigationContainer } from '@react-navigation/native';
 import { StackNavigator } from './presentation/navigator/StackNavigator';
-import { PaperProvider } from 'react-native-paper';
-//import { View, Text, StyleSheet } from 'react-native';
+import { ThemeContexProvider } from './presentation/context/ThemeContex';
+
 
 export const App = () => {
   return (
-    <PaperProvider>
-    <NavigationContainer>
+    <ThemeContexProvider>
     <StackNavigator/>
-    </NavigationContainer>
-    </PaperProvider>
+    </ThemeContexProvider>
   );
 };
-
-/* const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
- */
