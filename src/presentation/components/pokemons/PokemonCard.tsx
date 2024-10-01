@@ -1,9 +1,11 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {Image, StyleSheet, View} from 'react-native';
+import {Image, Pressable, StyleSheet, View} from 'react-native';
 import {Pokemon} from '../../../domain/entities/pokemon';
 import {Card, Text} from 'react-native-paper';
 import { FadeInImage } from '../ui/FadeInImage';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { RootStackParams } from '../../navigator/StackNavigator';
 
 const imgPokeball = require('../../../assets/pokeball-light.png');
 
@@ -12,7 +14,17 @@ interface Props {
 }
 
 export const PokemonCard = ({pokemon}: Props) => {
+
+  const navigation = useNavigation<NavigationProp<RootStackParams>>();
+
+
   return (
+    <Pressable
+    style={{flex:1}}
+    onPress={()=>navigation.navigate('PokemonScreen', {pokemonId: pokemon.id})}
+    >
+
+
     <Card style={[styles.cardContainer, {backgroundColor: pokemon.color}]}>
       <Text style={styles.name} variant="bodyLarge" lineBreakMode="middle">
         {pokemon.name}
@@ -30,6 +42,7 @@ export const PokemonCard = ({pokemon}: Props) => {
 
       <Text style={[styles.name, {marginTop: 35}]}>{pokemon.types[0]}</Text>
     </Card>
+    </Pressable>
   );
 };
 
