@@ -1,20 +1,25 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react/no-unstable-nested-components */
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, FlatList ,StyleSheet } from 'react-native';
 import { getPokemons } from '../../../actions/pokemons';
 import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
 import { PokeballBg } from '../../components/ui/PokeballBg';
-import { FlatList } from 'react-native-gesture-handler';
-import { Text } from 'react-native-paper';
+import { FAB, Text, useTheme } from 'react-native-paper';
 import { globalTheme } from '../../../config/theme/global-theme';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { PokemonCard } from '../../components/pokemons/PokemonCard';
+import Icon from 'react-native-vector-icons/Ionicons';
+import { StackScreenProps } from '@react-navigation/stack';
+import { RootStackParams } from '../../navigator/StackNavigator';
 
-export const HomeScreen = () => {
+interface Props extends StackScreenProps<RootStackParams,'HomeScreen'>{}
+
+export const HomeScreen = ({navigation}:Props) => {
 
   const {top} = useSafeAreaInsets();
   const queryClient = useQueryClient();
+  const theme = useTheme();
 
   //Esta es la forma tradicional para hacer una peticion http con tanstack query
 /*   const {isLoading, data: pokemons = []} = useQuery({
@@ -56,6 +61,14 @@ export const HomeScreen = () => {
        onEndReachedThreshold={0.6}
        onEndReached={()=> fetchNextPage()}
        showsVerticalScrollIndicator={false}
+      />
+
+      <FAB
+       icon={() => <Icon name="search-outline" size={24} color={theme.dark ? 'black' : 'white'} />}
+       style={[globalTheme.fab, {backgroundColor: theme.colors.primary}]}
+       mode="elevated"
+       color={theme.dark ? 'black' : 'white'}
+       onPress={()=>navigation.push('SearchScreen')}
       />
 
 
