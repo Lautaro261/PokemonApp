@@ -1,40 +1,38 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-native/no-inline-styles */
-import React, { useContext } from 'react';
-import { StackScreenProps } from '@react-navigation/stack';
-import { View, StyleSheet, FlatList, Image, ScrollView } from 'react-native';
-import { RootStackParams } from '../../navigator/StackNavigator';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { getPokemonById } from '../../../actions/pokemons';
-import { FullScreenLoader } from '../../components/ui/FullScreenLoader';
-import { Chip, Text } from 'react-native-paper';
-import { Formatter } from '../../../config/helpers/formatter';
-import { FadeInImage } from '../../components/ui/FadeInImage';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { ThemeContex } from '../../context/ThemeContex';
+import React, {useContext} from 'react';
+import {StackScreenProps} from '@react-navigation/stack';
+import {View, StyleSheet, FlatList, Image, ScrollView} from 'react-native';
+import {RootStackParams} from '../../navigator/StackNavigator';
+import {useQuery, useQueryClient} from '@tanstack/react-query';
+import {getPokemonById} from '../../../actions/pokemons';
+import {FullScreenLoader} from '../../components/ui/FullScreenLoader';
+import {Chip, Text} from 'react-native-paper';
+import {Formatter} from '../../../config/helpers/formatter';
+import {FadeInImage} from '../../components/ui/FadeInImage';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {ThemeContex} from '../../context/ThemeContex';
 
-interface Props extends StackScreenProps<RootStackParams, 'PokemonScreen'>{}
+interface Props extends StackScreenProps<RootStackParams, 'PokemonScreen'> {}
 
-export const PokemonScreen = ({navigation, route}:Props) => {
-
-  const { pokemonId } = route.params;
-  const { top } = useSafeAreaInsets();
-  const { isDark } = useContext(ThemeContex);
+export const PokemonScreen = ({navigation, route}: Props) => {
+  const {pokemonId} = route.params;
+  const {top} = useSafeAreaInsets();
+  const {isDark} = useContext(ThemeContex);
 
   const pokeballImg = isDark
-  ? require('../../../assets/pokeball-light.png')
-  : require('../../../assets/pokeball-dark.png');
+    ? require('../../../assets/pokeball-light.png')
+    : require('../../../assets/pokeball-dark.png');
 
-  const { isLoading , data: pokemon } = useQuery({
+  const {isLoading, data: pokemon} = useQuery({
     //         [nombre, valor]
     queryKey: ['pokemon', pokemonId],
     staleTime: 1000 * 60 * 60,
-    queryFn: ()=> getPokemonById(pokemonId),
-
+    queryFn: () => getPokemonById(pokemonId),
   });
 
-  if(!pokemon){
-    return(<FullScreenLoader/>);
+  if (!pokemon) {
+    return <FullScreenLoader />;
   }
 
   return (
